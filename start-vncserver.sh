@@ -6,7 +6,7 @@ set -eu
 
 # Setting pidfile + command to execute
 pidfile="/root/.vnc/b11ec321727f:1.pid"
-command=/usr/bin/vncserver :1 -geometry 1366x768 -depth 24
+command="/usr/bin/vncserver :1 -geometry 1366x768 -depth 24"
 
 USER=root
 export USER
