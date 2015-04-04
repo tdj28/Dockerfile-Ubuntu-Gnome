@@ -4,8 +4,13 @@
 
 set -eu
 
+# Setting pidfile + command to execute
 pidfile="/root/.vnc/b11ec321727f:1.pid"
 command=/usr/bin/vncserver :1 -geometry 1366x768 -depth 24
+
+USER=root
+export USER
+
 
 # Proxy signals
 function kill_app(){
@@ -15,7 +20,7 @@ function kill_app(){
 trap "kill_app" SIGINT SIGTERM
 
 # Launch daemon
-USER=root $command
+$command
 sleep 2
 
 # Loop while the pidfile and the process exist
