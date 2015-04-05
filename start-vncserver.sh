@@ -22,6 +22,7 @@ function kill_app(){
 trap "kill_app" SIGINT SIGTERM
 
 # Launch daemon
+/usr/local/etc/start-vnc-expect-script.sh
 /chvncpasswd.sh "ubuntu"
 $command
 sleep 2
