@@ -21,11 +21,6 @@ apt-get update
 # Install supervisor
 RUN apt-get install -y supervisor
 
-ADD start-vncserver.sh /start-vncserver.sh
-ADD run.sh /run.sh
-RUN chmod 755 /*.sh
-ADD supervisord-vncserver.conf /etc/supervisor/conf.d/supervisord-vncserver.conf
-
 # Installing fuse filesystem is not possible in docker without elevated priviliges
 # but we can fake installling it to allow packages we need to install for GNOME
 RUN apt-get install libfuse2 -y && \
@@ -61,6 +56,12 @@ RUN apt-get install -y expect
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/start-vnc-expect-script.sh /usr/local/etc/start-vnc-expect-script.sh
 RUN chmod +x /usr/local/etc/start-vnc-expect-script.sh
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/vnc.conf /etc/vnc.conf
+
+# Set up supervisord
+ADD start-vncserver.sh /start-vncserver.sh
+ADD run.sh /run.sh
+RUN chmod 755 /*.sh
+ADD supervisord-vncserver.conf /etc/supervisor/conf.d/supervisord-vncserver.conf
 
 # Define mountable directories.
 VOLUME ["/data"]
