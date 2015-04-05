@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y xorg gnome-core gnome-session-fallback 
 
 # Pull in the hack to fix keyboard shortcut bindings for GNOME 3 under VNC
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-keybindings.pl /usr/local/etc/gnome-keybindings.pl
-RUN chmod +x /usr/local/etc/gnome-keybi	ndings.pl
+RUN chmod +x /usr/local/etc/gnome-keybindings.pl
 
 # Add the script to fix and customise GNOME for docker
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-docker-fix-and-customise.sh /usr/local/etc/gnome-docker-fix-and-customise.sh
