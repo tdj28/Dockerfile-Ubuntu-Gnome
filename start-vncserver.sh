@@ -22,6 +22,7 @@ function kill_app(){
 trap "kill_app" SIGINT SIGTERM
 
 # Launch daemon
+echo "ubuntu" | vncpasswd -f > /root/.vnc/passwd
 $command
 sleep 2
 

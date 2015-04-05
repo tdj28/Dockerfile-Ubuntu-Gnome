@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y xorg gnome-core gnome-session-fallback 
 
 # Pull in the hack to fix keyboard shortcut bindings for GNOME 3 under VNC
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-keybindings.pl /usr/local/etc/gnome-keybindings.pl
-RUN chmod +x /usr/local/etc/gnome-keybindings.pl
+RUN chmod +x /usr/local/etc/gnome-keybi	ndings.pl
 
 # Add the script to fix and customise GNOME for docker
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-docker-fix-and-customise.sh /usr/local/etc/gnome-docker-fix-and-customise.sh
@@ -59,9 +59,11 @@ ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/mas
 
 # Set up supervisord
 ADD start-vncserver.sh /start-vncserver.sh
+ADD chvncpasswd.sh 	/chvncpasswd.sh
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 ADD supervisord-vncserver.conf /etc/supervisor/conf.d/supervisord-vncserver.conf
+
 
 # Define mountable directories.
 VOLUME ["/data"]
