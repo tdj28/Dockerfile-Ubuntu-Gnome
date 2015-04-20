@@ -18,6 +18,9 @@ RUN apt-get update && \
 apt-get upgrade -y && \
 apt-get update
 
+# Install supervisor
+RUN apt-get install -y supervisor
+
 # Installing fuse filesystem is not possible in docker without elevated priviliges
 # but we can fake installling it to allow packages we need to install for GNOME
 RUN apt-get install libfuse2 -y && \
@@ -54,6 +57,14 @@ ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/mas
 RUN chmod +x /usr/local/etc/start-vnc-expect-script.sh
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/vnc.conf /etc/vnc.conf
 
+# Set up supervisord
+ADD start-vncserver.sh /start-vncserver.sh
+ADD chvncpasswd.sh 	/chvncpasswd.sh
+ADD run.sh /run.sh
+RUN chmod 755 /*.sh
+ADD supervisord-vncserver.conf /etc/supervisor/conf.d/supervisord-vncserver.conf
+
+
 # Define mountable directories.
 VOLUME ["/data"]
 
@@ -61,7 +72,8 @@ VOLUME ["/data"]
 WORKDIR /data
 
 # Define default command.
-CMD bash -C '/usr/local/etc/spawn-desktop.sh';'bash'
+# CMD bash -C '/usr/local/etc/spawn-desktop.sh';'bash'
+CMD ["/run.sh"]
 
 # Expose ports.
 EXPOSE 5901
