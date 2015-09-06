@@ -8,7 +8,7 @@
 # (c) Pete Birley
 
 # Pull base image.
-FROM dockerfile/ubuntu
+FROM ubuntu
 
 # Setup enviroment variables
 ENV DEBIAN_FRONTEND noninteractive
@@ -38,6 +38,8 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 # Install GNOME and tightvnc server.
 RUN apt-get update && apt-get install -y xorg gnome-core gnome-session-fallback tightvncserver libreoffice
 
+RUN apt-get install -y texlive-publishers texlive-science texlive-math-extra texlive-latex-extra
+
 # Pull in the hack to fix keyboard shortcut bindings for GNOME 3 under VNC
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-keybindings.pl /usr/local/etc/gnome-keybindings.pl
 RUN chmod +x /usr/local/etc/gnome-keybindings.pl
@@ -50,8 +52,8 @@ RUN chmod +x /usr/local/etc/gnome-docker-fix-and-customise.sh
 RUN mkdir -p /root/.vnc
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/xstartup /root/.vnc/xstartup
 RUN chmod 755 /root/.vnc/xstartup
-ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/spawn-desktop.sh /usr/local/etc/spawn-desktop.sh
-RUN chmod +x /usr/local/etc/spawn-desktop.sh
+#ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/spawn-desktop.sh /usr/local/etc/spawn-desktop.sh
+#RUN chmod +x /usr/local/etc/spawn-desktop.sh
 RUN apt-get install -y expect
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/start-vnc-expect-script.sh /usr/local/etc/start-vnc-expect-script.sh
 RUN chmod +x /usr/local/etc/start-vnc-expect-script.sh
