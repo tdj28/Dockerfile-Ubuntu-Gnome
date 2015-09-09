@@ -38,7 +38,14 @@ RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/i
 # Install GNOME and tightvnc server.
 RUN apt-get update && apt-get install -y xorg gnome-core gnome-session-fallback tightvncserver libreoffice
 
+# For clipboard functionality
+RUN sudo apt-get install -y autocutsel
+
+RUN apt-get install -y gnome-core xfce4 firefox nano 
+
 RUN apt-get install -y texlive-publishers texlive-science texlive-math-extra texlive-latex-extra
+
+RUN apt-get install -y gimp inkscape vim 
 
 # Pull in the hack to fix keyboard shortcut bindings for GNOME 3 under VNC
 ADD https://raw.githubusercontent.com/CannyComputing/Dockerfile-Ubuntu-Gnome/master/gnome-keybindings.pl /usr/local/etc/gnome-keybindings.pl

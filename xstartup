@@ -6,6 +6,9 @@
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 
+# For clipboard
+autocutsel -s CLIPBOARD -fork
+autocutsel -s PRIMARY -fork
 
 #Currently Gnome falls over launching via session, so we need to bring it up manually:
 gnome-panel &
